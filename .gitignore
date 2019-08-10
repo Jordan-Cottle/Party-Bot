@@ -1,5 +1,11 @@
-#ignore venv folder
+# ignore venv folder
 /venv
 
-#ignore vscode configuration settings
+# ignore vscode configuration settings
 /.vscode
+
+# ignore python bytecode files
+*.pyc
+
+# ignore login info and credentials
+secretInfo.py
