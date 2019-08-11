@@ -1,20 +1,22 @@
 import discord
-import secretInfo
 
-client = discord.Client()
+class PartyBot(discord.Client):
+    async def on_ready(self):
+        print(f"Successfully logged in as {self.user}")
+    
+    async def on_message(self, msg):
+        content = msg.content
+        print(f'Message received: ({msg.author}) {content}')
 
-@client.event
-async def on_ready():
-    print(f"Successfully logged in as {client}")
+        if msg.author == self.user:
+            return
+    
+        if content.startswith("echo "):
+            await msg.channel.send(content[5:])
 
-@client.event
-async def on_message(msg):
-    if msg.author == client.user:
-        return
 
-    content = msg.content
-    print(f'Message received: ({msg.author}) {content}')
-    if content.startswith("echo "):
-        await msg.channel.send(content[5:])
+if __name__ == "__main__":
+    import secretInfo
 
-client.run(secretInfo.botToken)
+    bot = PartyBot()
+    bot.run(secretInfo.botToken)
